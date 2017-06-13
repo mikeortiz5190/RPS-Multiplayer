@@ -1,0 +1,52 @@
+body{
+    background-image: url("https://newevolutiondesigns.com/images/freebies/texture-wallpaper-preview-58.jpg");
+    padding-left:75px;
+    padding-right:75px;
+    padding-top:75px;
+}
+
+.hOne{
+    font-family: 'Ruslan Display', cursive;
+}
+
+.main-text{
+    font-family: 'Ruslan Display', cursive;
+}
+
+.hthree{
+    font-family: 'Ruslan Display', cursive;
+    margin-top:75px;
+    margin-bottom:75px;
+    margin-left:100px;
+    margin-right:100px;
+}
+
+.center-text{
+    text-align:center;
+}
+
+.heading{
+    margin-bottom:50px;
+    margin-left:50px;
+    margin-right:50px;
+}
+
+#message-box{
+    text-align:center;
+    margin-top:50px;
+}
+
+#box{
+    background-color:#ccc;
+    margin-top:5px;
+    margin-bottom:5px;
+}
+
+#text{
+
+}
+
+.resize{
+    margin-left:30%;
+    margin-right:30%;
+}
