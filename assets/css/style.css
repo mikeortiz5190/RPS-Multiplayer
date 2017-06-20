@@ -36,6 +36,12 @@ body{
     margin-top:50px;
 }
 
+#start{
+    text-align:center;
+    margin-top:0px;
+    margin-bottom:40px;
+}
+
 #box{
     background-color:#ccc;
     margin-top:5px;
@@ -49,4 +55,15 @@ body{
 .resize{
     margin-left:30%;
     margin-right:30%;
+}
+
+.grey-back{
+    background-color:#ccc;
+   padding-top:30px;
+    padding-bottom:30px;
+}
+
+.open{
+    margin-top:30px;
+    margin-bottom:30px;
 }

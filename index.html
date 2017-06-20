@@ -21,22 +21,48 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
 
 <script src="https://www.gstatic.com/firebasejs/4.1.1/firebase.js"></script>
 
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
 </head>
 <body>
 
-    <div class="jumbotron">
-        <div class="heading center-text">
+<!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header grey-back">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Enter your name to begin</h4>
+        </div>
+       
+        <div class="modal-body center-text open">
+            <form id="name-form">
+                <label for="name-input">Name</label>
+                <input type="text" id="name-input">
+                <input type="button" id="add-name" value="Submit!">
+            </form>
+        </div>     
+        </div>
+      </div>
+    </div>
+</div>
+
+    <div class="jumbotron center-text">
+        <div class="heading">
             <h1 class="hOne">ROCK PAPER SISSORS DEATH MATCH!!!</h1>
             <h3 class="hthree">By entering in this match, you must acknowledge that your purpose shall be to obliterate your opponent!</h3>
         </div>
-        <div id="player-heading">
-        </div>
+        <button type="button" class="btn btn-danger" id="start">CLICK TO START</button>
+        <div id="playing-field">
         <div class="container">
             <div class="row center-text">
                 <div class="col-sm-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="main-text panel-title">Player 1, select your weapon of death</h3>
+                            <h3 class="main-text panel-title"><div class="name1">Player 1</div></h3>
                         </div>
                         <div class="panel-body">
                             <button type="button" class="main-text btn btn-danger weapon1" data-weapon="ROCK">ROCK</button>
@@ -61,12 +87,12 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
                     <div class="col-sm-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <h3 class="main-text panel-title">Player 2, select your weapon of death</h3>
+                            <h3 class="main-text panel-title"><div class="name2">Player 2</div></h3>
                         </div>
                         <div class="panel-body">
-                            <button type="button" class="main-text btn btn-danger weapon4" data-weapon="ROCK">ROCK</button>
-                            <button type="button" class="main-text btn btn-danger weapon5" data-weapon="PAPER">PAPER</button>
-                            <button type="button" class="main-text btn btn-danger weapon6" data-weapon="SISSORS">SISSORS</button>
+                            <button type="button" class="main-text btn btn-danger weapon1" data-weapon="ROCK">ROCK</button>
+                            <button type="button" class="main-text btn btn-danger weapon2" data-weapon="PAPER">PAPER</button>
+                            <button type="button" class="main-text btn btn-danger weapon3" data-weapon="SISSORS">SISSORS</button>
                             <div id="player2-weapon">
                             </div>
                         </div>
@@ -90,7 +116,8 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
                         </form>
                 </div>
             </div>
-</div>
+        </div>
+    </div>
     
 </body>
 </html>
