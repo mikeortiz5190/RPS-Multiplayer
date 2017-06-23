@@ -70,13 +70,13 @@ $("#add-name").on('click', function(){
 
 
 function NameYourPlayer(name){
-    database.ref("/players").on("value", function (snapshot) {
+    database.ref("/players").once("value", function (snapshot) {
       console.log('value player 1 ', snapshot.val())
-        player1 = snapshot.child("player1").exists();
-        player2 = snapshot.child("player2").exists();
-      console.log(player1);
-      console.log(player2);
-             if (!player1) {
+        p1 = snapshot.child("player1").exists();
+        p2 = snapshot.child("player2").exists();
+      console.log(p1);
+      console.log(p2);
+             if (!p1) {
                 console.log("no one is in yet");
                 //might have add on click that submits player
                 database.ref("/players").set({
@@ -87,14 +87,11 @@ function NameYourPlayer(name){
                 return name;
 
             } 
-            else if (player1 == true && !player2){
-                console.log("NOW 1");
+            else if (p1 == true && !p2){
                 //use the same on click to add this player
                 var addNewPlayer = {};
                 addNewPlayer['/player2'] = name;
-                console.log("NOW 2");
                 database.ref("/players").update(addNewPlayer);
-                console.log("NOW 3");
                 $(".name2").html($("<h3>").html(name));
                 console.log("Player 2 is logged in! ");
                 return name;       
@@ -102,6 +99,22 @@ function NameYourPlayer(name){
     
     });
 };
+
+database.ref("/players").on("value", function (snapshot) {
+    p1 = snapshot.child("player1").exists();
+    p2 = snapshot.child("player2").exists();
+    if(p1 && p2){
+        console.log(p1);
+        console.log(p2);
+        $(".name1").html($("<h3>").html(snapshot.val().player1));
+        $(".name2").html($("<h3>").html(snapshot.val().player2));
+    }
+
+    else {
+        return false;
+    }
+});
+
 
   //VARIABLES FOR WHEN A R/P/S IS CLICKED ON, PLAYER 1/ PLAYER2 RESPECTIVELY;
 
