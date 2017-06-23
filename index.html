@@ -56,6 +56,10 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
             <h3 class="hthree">By entering in this match, you must acknowledge that your purpose shall be to obliterate your opponent!</h3>
         </div>
         <button type="button" class="btn btn-danger" id="start">CLICK TO START</button>
+        <div id="messageOne">
+        </div>
+        <div id="messageTwo">
+        </div>
         <div id="playing-field">
         <div class="container">
             <div class="row center-text">
@@ -64,7 +68,7 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
                         <div class="panel-heading">
                             <h3 class="main-text panel-title"><div class="name1">Player 1</div></h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body player-one-buttons">
                             <button type="button" class="main-text btn btn-danger weapon1" data-weapon="ROCK">ROCK</button>
                             <button type="button" class="main-text btn btn-danger weapon2" data-weapon="PAPER">PAPER</button>
                             <button type="button" class="main-text btn btn-danger weapon3" data-weapon="SISSORS">SISSORS</button>
@@ -89,7 +93,7 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
                         <div class="panel-heading">
                             <h3 class="main-text panel-title"><div class="name2">Player 2</div></h3>
                         </div>
-                        <div class="panel-body">
+                        <div class="panel-body player-two-buttons">
                             <button type="button" class="main-text btn btn-danger weapon1" data-weapon="ROCK">ROCK</button>
                             <button type="button" class="main-text btn btn-danger weapon2" data-weapon="PAPER">PAPER</button>
                             <button type="button" class="main-text btn btn-danger weapon3" data-weapon="SISSORS">SISSORS</button>
@@ -112,7 +116,8 @@ integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh
                     <form id="text-form">
                         <label for="text-input">Hurl abusive slurs to your opponent!</label>
                         <input type="text" id="text-input"><br>
-                        <input id="add-slur" type="button" class="btn btn-primary" value="Send!">
+                        <input id="add-slur1" type="button" class="btn btn-primary" value="Send!">
+                        <input id="add-slur2" type="button" class="btn btn-primary" value="Send!">
                         </form>
                 </div>
             </div>

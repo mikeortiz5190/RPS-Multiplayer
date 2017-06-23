@@ -50,7 +50,11 @@ var insults = "";
   var database = firebase.database();
 
   window.onload = function(){
-    $("#playing-field").hide();  
+    //$("#playing-field").hide(); 
+    $(".player-one-buttons").hide();
+    $(".player-two-buttons").hide();
+    $("#add-slur1").hide();
+    $("#add-slur2").hide();
   };
 
 $("#start").on('click', function(){
@@ -65,7 +69,7 @@ $("#add-name").on('click', function(){
     NameYourPlayer(nameInput);
     audioFour.play();
     $("#myModal").modal("hide");
-    $("#playing-field").show();
+    //$("#playing-field").show();
 })
 
 
@@ -78,26 +82,38 @@ function NameYourPlayer(name){
       console.log(p2);
              if (!p1) {
                 console.log("no one is in yet");
-                //might have add on click that submits player
                 database.ref("/players").set({
                     player1: name
                 })
                 $(".name1").html($("<h3>").html(name));
                 console.log("Player 1 is logged in! ");
+                enterPlayerOne();
                 return name;
 
             } 
             else if (p1 == true && !p2){
-                //use the same on click to add this player
                 var addNewPlayer = {};
                 addNewPlayer['/player2'] = name;
                 database.ref("/players").update(addNewPlayer);
                 $(".name2").html($("<h3>").html(name));
                 console.log("Player 2 is logged in! ");
+                enterPlayerTwo();
                 return name;       
             }
     
     });
+};
+
+function enterPlayerOne(){
+    $(".player-one-buttons").show();
+    $("#add-slur1").show();
+    console.log("did it work?");
+};
+
+function enterPlayerTwo(){
+    $(".player-two-buttons").show();
+    $("#add-slur2").show();
+    console.log("did it work?");
 };
 
 database.ref("/players").on("value", function (snapshot) {
@@ -261,14 +277,8 @@ if($(".weapon6").data("clicked")){
 
 //CODE FOR DISPLAYING THE RESULT OF RPS ROUND
 
-
-//TEXT BOX FOR FOUL ABUSIVE SLURS
-
-
-
-
-    function rps(w1, w2){
-        if ((w1 === "ROCK") && (w2 === "SISSORS")) {
+function rps(w1, w2){
+    if ((w1 === "ROCK") && (w2 === "SISSORS")) {
             playerOneWins++;
             //$("#stage").html($("<p>").html(ranNum));
             $("#stage").append("<h3 class='main-text>Player 1 WINS!</h3>"+"<h4 class='main-text>Player 2 you SUCK!</h3>");
@@ -301,5 +311,27 @@ if($(".weapon6").data("clicked")){
           //}
 
     };
+
+//TEXT BOX FOR FOUL ABUSIVE SLURS
+$("#add-slur1").on('click', function(){
+    textBox();
+});
+
+$("#add-slur2").on('click', function(){
+    textBox();
+});
+
+function textBox(){
+    database.ref("/textbox").on("value", function (snapshot) {
+        //if //slur 1 was clicked, add slur to data base while referncing player 1
+        database.ref("/textbox").set({
+            
+         });
+    });
+
+
+
+};
+
 
 });
