@@ -315,15 +315,22 @@ function rps(w1, w2){
 //TEXT BOX FOR FOUL ABUSIVE SLURS
 $("#add-slur1").on('click', function(){
     textBox();
+    console.log("player1 sent slur");
 });
 
 $("#add-slur2").on('click', function(){
     textBox();
+    console.log("player2 sent slur");
 });
 
 function textBox(){
     database.ref("/textbox").on("value", function (snapshot) {
         //if //slur 1 was clicked, add slur to data base while referncing player 1
+        database.ref("/textbox").set({
+            
+         });
+
+         //else if //slur 2 was clicked, add slur to data base while referncing player 2
         database.ref("/textbox").set({
             
          });
