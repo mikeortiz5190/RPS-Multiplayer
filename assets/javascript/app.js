@@ -53,8 +53,8 @@ var insults = "";
     //$("#playing-field").hide(); 
     $(".player-one-buttons").hide();
     $(".player-two-buttons").hide();
-    $("#add-slur1").hide();
-    $("#add-slur2").hide();
+    $("#textOne").hide();
+    $("#textTwo").hide();
   };
 
 $("#start").on('click', function(){
@@ -87,7 +87,7 @@ function NameYourPlayer(name){
                 })
                 $(".name1").html($("<h3>").html(name));
                 console.log("Player 1 is logged in! ");
-                enterPlayerOne();
+                enterPlayerOne(name);
                 return name;
 
             } 
@@ -97,22 +97,28 @@ function NameYourPlayer(name){
                 database.ref("/players").update(addNewPlayer);
                 $(".name2").html($("<h3>").html(name));
                 console.log("Player 2 is logged in! ");
-                enterPlayerTwo();
+                enterPlayerTwo(name);
                 return name;       
             }
     
     });
 };
 
-function enterPlayerOne(){
+function enterPlayerOne(name1){
     $(".player-one-buttons").show();
-    $("#add-slur1").show();
+    $("#textOne").show();
+    database.ref("/textbox1").set({
+        playerOneIs: name1
+    });
     console.log("did it work?");
 };
 
-function enterPlayerTwo(){
+function enterPlayerTwo(name2){
     $(".player-two-buttons").show();
-    $("#add-slur2").show();
+    $("#textTwo").show();
+    database.ref("/textbox2").set({
+        playerTwoIs: name2
+    });
     console.log("did it work?");
 };
 
@@ -314,31 +320,59 @@ function rps(w1, w2){
 
 //TEXT BOX FOR FOUL ABUSIVE SLURS
 $("#add-slur1").on('click', function(){
-    textBox();
+    var txtOne = $("#text-input1").val().trim();
+    textBox1(txtOne);
     console.log("player1 sent slur");
 });
 
 $("#add-slur2").on('click', function(){
-    textBox();
+    var txtTwo = $("#text-input2").val().trim();
+    textBox2(txtTwo);
     console.log("player2 sent slur");
 });
 
-function textBox(){
-    database.ref("/textbox").on("value", function (snapshot) {
-        //if //slur 1 was clicked, add slur to data base while referncing player 1
-        database.ref("/textbox").set({
-            
-         });
-
-         //else if //slur 2 was clicked, add slur to data base while referncing player 2
-        database.ref("/textbox").set({
-            
-         });
+function textBox1(slurOne){
+    database.ref("/textbox1").update({
+        playerOneSays: slurOne
     });
+    $("#text-input1").clear();
 
+};
+
+function textBox2(slurTwo){
+    database.ref("/textbox2").update({
+        playerTwoSays: slurTwo
+    });
+    $("#text-input2").clear();
 
 
 };
 
+database.ref("/textbox1").on("value", function(snapshot) {
+    pOne = snapshot.child("playerOneSays").exists();
+    if (pOne){
+        $("#box").prepend($("<p>").html(snapshot.val().playerOneIs + ": " + snapshot.val().playerOneSays));
+        //$("#box").prepend($("<p>").html("Player 2: " + snapshot.val().playerTwoSays));
+    }
 
+    else {
+        $("#box").prepend($("<p>").html(snapshot.val().playerOneIs + ": HAS ENTERED!"));
+    }
+});
+
+database.ref("/textbox2").on("value", function(snapshot) {
+    pTwo = snapshot.child("playerTwoSays").exists();
+    if (pTwo){
+        //$("#box").prepend($("<p>").html("Player 1: " + snapshot.val().playerOneSays));
+        $("#box").prepend($("<p>").html(snapshot.val().playerTwoIs + ": " + snapshot.val().playerTwoSays));
+    }
+
+    else {
+        $("#box").prepend($("<p>").html(snapshot.val().playerTwoIs + ": HAS ENTERED!"));
+    }
+});
+
+
+
+//CLOSING TAG FOR DOCUMENT.READY//
 });
