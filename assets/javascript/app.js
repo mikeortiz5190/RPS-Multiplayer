@@ -184,7 +184,6 @@ function turnOne(){
         weaponSelectOne: weaponSelectOne
         });
         turnTwo();
-
         }
 
 
@@ -197,7 +196,6 @@ function turnOne(){
         weaponSelectOne: weaponSelectOne
         });
         turnTwo();
-
         }
     };
 
@@ -210,7 +208,7 @@ function turnOne(){
 
 function turnTwo(){
 
-        $(".weapon4").click(function(){
+    $(".weapon4").click(function(){
     $(this).data("clicked", true);
 });
 
@@ -323,12 +321,14 @@ $("#add-slur1").on('click', function(){
     var txtOne = $("#text-input1").val().trim();
     textBox1(txtOne);
     console.log("player1 sent slur");
+    audioFour.play();
 });
 
 $("#add-slur2").on('click', function(){
     var txtTwo = $("#text-input2").val().trim();
     textBox2(txtTwo);
     console.log("player2 sent slur");
+    audioFour.play();
 });
 
 function textBox1(slurOne){
