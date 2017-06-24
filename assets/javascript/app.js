@@ -31,9 +31,9 @@ var insults = "";
 
 //PLAY MUSIC WHEN PAGE LOADS
 
-//audioOne.play();
+audioOne.play();
 
-//audioTwo.play();
+audioTwo.play();
 
 
   // Initialize Firebase
