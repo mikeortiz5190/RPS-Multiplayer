@@ -11,6 +11,8 @@ var audioThree = new Audio("assets/audio/Creepy_Laugh.mp3");
 
 var audioFour = new Audio("assets/audio/click.wav");
 
+var audioFive = new Audio("assets/audio/click.wav");
+
 //INITIAL VARIABLES
 
 var playerOneWins = 0;
@@ -137,177 +139,178 @@ database.ref("/players").on("value", function (snapshot) {
     }
 });
 
-
-  //VARIABLES FOR WHEN A R/P/S IS CLICKED ON, PLAYER 1/ PLAYER2 RESPECTIVELY;
-
-//function for player one to go first
-
-
+//PLAYER ONE CHOOSES
 
 $('.weapon1').on('click', function(){
     weaponSelectOne = $(this).attr("data-weapon");
-    console.log(weaponSelectOne);
-    turnTwo();
+    turnOne(weaponSelectOne);
+    $(".player-one-buttons").hide();
+    audioFour.play();
 });
 
 $('.weapon2').on('click', function(){
     weaponSelectOne = $(this).attr("data-weapon");
-    console.log(weaponSelectOne);
-    turnTwo();
+    turnOne(weaponSelectOne);
+    $(".player-one-buttons").hide();
+    audioFour.play();
 }); 
 
 $('.weapon3').on('click', function(){
     weaponSelectOne = $(this).attr("data-weapon");
-    console.log(weaponSelectOne);
-    turnTwo();
-});   
-
-function turnOne(){
-
-        weaponSelectOne = $(this).on("click").attr("data-weapon");
-        if(weaponSelectOne === "ROCK") {
-        $("#player1-weapon").append($("<p>").text("ROCK"));
-        audioFour.play();
-        console.log(weaponSelectOne);
-        database.ref("/player1").set({
-        weaponSelectOne: weaponSelectOne
-        });
-      turnTwo();
-        //code for displaying player one choice
-}
-
-    else if(weaponSelectOne === "PAPER"){
-        $("#player1-weapon").append($("<p>").text("PAPER"));
-        audioFour.play();
-        console.log(weaponSelectOne);
-        database.ref("/player1").set({
-        weaponSelectOne: weaponSelectOne
-        });
-        turnTwo();
-        }
-
-
-
-    else if(weaponSelectOne === "SISSORS"){
-        $("#player1-weapon").append($("<p>").text("SISSORS"));
-        audioFour.play();
-        console.log(weaponSelectOne);
-        database.ref("/player1").set({
-        weaponSelectOne: weaponSelectOne
-        });
-        turnTwo();
-        }
-    };
-
-//XXXXXXXXXXXXXXXXXXXXXXX
-
-  turnOne();
-
-//XXXXXXXXXXXXXXXXXXXXXXX
-
-
-function turnTwo(){
-
-    $(".weapon4").click(function(){
-    $(this).data("clicked", true);
-});
-
-$(".weapon5").click(function(){
-    $(this).data("clicked", true);
-});
-
-$(".weapon6").click(function(){
-    $(this).data("clicked", true);
-});
-
-    if($(".weapon4").data("clicked")){
-        weaponSelectTwo = $(".weapon4").attr("data-weapon");
-        $("#player2-weapon").append($("<p>").text(weaponSelectTwo));
-        audioFour.play();
-        console.log(weaponSelectTwo);
-        database.ref("/player2").set({
-        weaponSelectTwo: weaponSelectTwo
-    });
-      //THE RPS FUCNTION IS CALLED
- rps(weaponSelectOne, weaponSelectTwo);
-
-        //code for displaying player one choice
-    }
-
-if($(".weapon5").data("clicked")){
-    weaponSelectTwo = $(".weapon5").attr("data-weapon");
-    $("#player2-weapon").append($("<p>").text(weaponSelectTwo));
+    turnOne(weaponSelectOne);
+    $(".player-one-buttons").hide();
     audioFour.play();
-    console.log(weaponSelectTwo);
-    database.ref("/player2").set({
-    weaponSelectTwo: weaponSelectTwo
-      });
-            //THE RPS FUCNTION IS CALLED
- rps(weaponSelectOne, weaponSelectTwo);
+}); 
 
-        //code for displaying player one choice
-    }
+function turnOne(weaponForPlayerOne){
 
-if($(".weapon6").data("clicked")){
-    weaponSelectTwo = $(".weapon6").attr("data-weapon");
-    $("#player2-weapon").append($("<p>").text(weaponSelectTwo));
-    audioFour.play();
-    console.log(weaponSelectTwo);
-    database.ref("/player2").set({
-    weaponSelectTwo: weaponSelectTwo
-      });
-            //THE RPS FUCNTION IS CALLED
- rps(weaponSelectOne, weaponSelectTwo);
-
-        //code for displaying player one choice
-    }
-
-
-};  
-
-//INITIAL LOAD
-
-// database.ref().on("value", function(snapshot) {
-//         console.log(snapshot.val());
-//         console.log(snapshot.val().weaponSelectOne);
-//         console.log(snapshot.val().weaponSelectTwo);
-//         console.log(snapshot.val().insults);
         
-//         $("#").html(snapshot.val().weaponSelectOne);
-//         $("#").html(snapshot.val().weaponSelectTwo);
-//         $(".").html(snapshot.val().insults);
+    if(weaponForPlayerOne === "ROCK") {
+        $("#player1-weapon").append($("<p>").text("ROCK"));
+        console.log(weaponForPlayerOne);
+        database.ref("/playerWeapon").update({
+            weaponSelectOne: weaponForPlayerOne
+        });
+        checkBothWeaponsAreSelected();
+    }
 
-//       });
+    else if(weaponForPlayerOne === "PAPER"){
+        $("#player1-weapon").append($("<p>").text("PAPER"));
+        console.log(weaponForPlayerOne);
+        database.ref("/playerWeapon").update({
+            weaponSelectOne: weaponForPlayerOne
+        });
+        checkBothWeaponsAreSelected();
+    }
 
-//CODE FOR DISPLAYING THE RESULT OF RPS ROUND
+
+
+    else if(weaponForPlayerOne === "SISSORS"){
+        $("#player1-weapon").append($("<p>").text("SISSORS"));
+        console.log(weaponForPlayerOne);
+        database.ref("/playerWeapon").update({
+            weaponSelectOne: weaponForPlayerOne
+        });
+        checkBothWeaponsAreSelected();
+    }
+};
+
+//PLAYER TWO CHOOSES
+    
+$('.weapon4').on('click', function(){
+    weaponSelectTwo = $(this).attr("data-weapon");
+    turnTwo(weaponSelectTwo);
+    $(".player-two-buttons").hide();
+    audioFour.play();
+});
+
+$('.weapon5').on('click', function(){
+    weaponSelectTwo = $(this).attr("data-weapon");
+    turnTwo(weaponSelectTwo);
+    $(".player-two-buttons").hide();
+    audioFour.play();
+}); 
+
+$('.weapon6').on('click', function(){
+    weaponSelectTwo = $(this).attr("data-weapon");
+    turnTwo(weaponSelectTwo);
+    $(".player-two-buttons").hide();
+    audioFour.play();
+}); 
+
+function turnTwo(weaponForPlayerTwo){
+
+    if(weaponForPlayerTwo === "ROCK") {
+        $("#player2-weapon").append($("<p>").text("ROCK"));
+        console.log(weaponForPlayerTwo);
+        database.ref("/playerWeapon").update({
+            weaponSelectTwo: weaponForPlayerTwo
+        });
+        checkBothWeaponsAreSelected();
+    }
+
+    else if(weaponForPlayerTwo === "PAPER"){
+        $("#player2-weapon").append($("<p>").text("PAPER"));
+        console.log(weaponForPlayerTwo);
+        database.ref("/playerWeapon").update({
+            weaponSelectTwo: weaponForPlayerTwo
+        });
+        checkBothWeaponsAreSelected();
+    }
+
+    else if(weaponForPlayerTwo === "SISSORS"){
+        $("#player2-weapon").append($("<p>").text("SISSORS"));
+        console.log(weaponForPlayerTwo);
+        database.ref("/playerWeapon").update({
+            weaponSelectTwo: weaponForPlayerTwo
+        });
+        checkBothWeaponsAreSelected();
+    }
+};
+
+
+//XXXXXXXXXXXXXXXXXXXXXXX
+
+//CHECKS TO SEE IF BOTH PLAYERS HAVE PICKED THEIR WEAPONS
+
+function checkBothWeaponsAreSelected(){
+    database.ref("/playerWeapon").on("value", function (snapshot) {
+        console.log('value', snapshot.val())
+        var weapon1 = snapshot.child("weaponSelectOne").exists();
+        var weapon2 = snapshot.child("weaponSelectTwo").exists();
+        console.log(weapon1);
+        console.log(weapon2);
+
+        if (weapon1 == true && weapon2 == true){
+        var choiceOne = snapshot.val().weaponSelectOne;
+        var choiceTwo = snapshot.val().weaponSelectTwo;
+        rps(choiceOne, choiceTwo);
+    }
+
+    else {
+        return false;
+    }
+    });
+};
+
+//XXXXXXXXXXXXXXXXXXXXXXX
+
+//CODE FOR RPS LOGIC
 
 function rps(w1, w2){
     if ((w1 === "ROCK") && (w2 === "SISSORS")) {
             playerOneWins++;
-            //$("#stage").html($("<p>").html(ranNum));
-            $("#stage").append("<h3 class='main-text>Player 1 WINS!</h3>"+"<h4 class='main-text>Player 2 you SUCK!</h3>");
+            $("#stage").append($("<h3>").text("Player 1 WINS! Player 2 you SUCK!"));
+            console.log("player 1 wins!");
           }
           else if ((w1 === "ROCK") && (w2 === "PAPER")) {
             playerTwoWins++;
-            $("#stage").append("<h3 class='main-text>Player 1 WINS!</h3>"+"<h4 class='main-text>Player 2 you SUCK!</h3>");
+            $("#stage").append($("<h3>").text("Player 2 WINS! Player 1 you SUCK!"));
+            console.log("player 2 wins!");
           }
           else if ((w1 === "SISSORS") && (w2 === "ROCK")) {
             playerTwoWins++;
-            $("#stage").append("<h3 class='main-text>Player 1 WINS!</h3>"+"<h4 class='main-text>Player 2 you SUCK!</h3>");
+            $("#stage").append($("<h3>").text("Player 2 WINS! Player 1 you SUCK!"));
+            console.log("player 2 wins!");
           }
           else if ((w1 === "SISSORS") && (w2 === "PAPER")) {
             playerOneWins++;
-            $("#stage").append("<h3 class='main-text>Player 1 WINS!</h3>"+"<h4 class='main-text>Player 2 you SUCK!</h3>");
+            $("#stage").append($("<h3>").text("Player 1 WINS! Player 2 you SUCK!"));
+            console.log("player 1 wins!");
           }
           else if ((w1 === "PAPER") && (w2 === "ROCK")) {
             playerOneWins++;
-            $("#stage").append("<h3 class='main-text>Player 1 WINS!</h3>"+"<h4 class='main-text>Player 2 you SUCK!</h3>");
+            $("#stage").append($("<h3>").text("Player 1 WINS! Player 2 you SUCK!"));
+            console.log("player 1 wins!");
           }
           else if ((w1 === "PAPER") && (w2 === "SISSORS")) {
             playerTwoWins++;
-            $("#stage").append("<h3 class='main-text>Player 1 WINS!</h3>"+"<h4 class='main-text>Player 2 you SUCK!</h3>");
+            $("#stage").append($("<h3>").text("Player 2 WINS! Player 1 you SUCK!"));
+            console.log("player 2 wins!");
           }
           else if (w1 === w2) {
+            $("#stage").append("<h3 class='main-text>It's a Tie!</h3>");
+            console.log("Tie!");
             ties++;
           }
           //else if((playerOneWins === 3)&&( playerTwoWins == 3)){
@@ -318,17 +321,17 @@ function rps(w1, w2){
 
 //TEXT BOX FOR FOUL ABUSIVE SLURS
 $("#add-slur1").on('click', function(){
+    audioFive.play();
     var txtOne = $("#text-input1").val().trim();
     textBox1(txtOne);
     console.log("player1 sent slur");
-    audioFour.play();
 });
 
 $("#add-slur2").on('click', function(){
+    audioFive.play();
     var txtTwo = $("#text-input2").val().trim();
     textBox2(txtTwo);
     console.log("player2 sent slur");
-    audioFour.play();
 });
 
 function textBox1(slurOne){
