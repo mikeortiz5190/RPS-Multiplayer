@@ -3,9 +3,9 @@ $( document ).ready(function(){
 
 //AUDIO FILES
 
-var audioOne = new Audio("assets/audio/Mortal_Kombat.mp3");
+//var audioOne = new Audio("assets/audio/Mortal_Kombat.mp3");
 
-var audioTwo = new Audio("assets/audio/fireplace.mp3");
+//var audioTwo = new Audio("assets/audio/fireplace.mp3");
 
 var audioThree = new Audio("assets/audio/Creepy_Laugh.mp3");
 
