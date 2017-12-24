@@ -19,23 +19,11 @@ var playerOneWins = 0;
 
 var playerTwoWins = 0;
 
-var ties = 0;
-
-var player1 = "";
-
-var player2 = "";
-
-var weaponSelectOne = "";
-
-var weaponSelectTwo = "";
-
-var insults = "";
-
 //PLAY MUSIC WHEN PAGE LOADS
 
-audioOne.play();
+//audioOne.play();
 
-audioTwo.play();
+//audioTwo.play();
 
 
   // Initialize Firebase
@@ -65,6 +53,7 @@ $("#start").on('click', function(){
     $("#start").hide();
 });
 
+//modal
 $("#add-name").on('click', function(){
     var nameInput = $("#name-input").val().trim();
     console.log(nameInput);
@@ -86,7 +75,10 @@ function NameYourPlayer(name){
                 console.log("no one is in yet");
                 database.ref("/players").set({
                     player1: name
-                })
+                });
+                database.ref("/score").set({
+                    score1: 0
+                });
                 $(".name1").html($("<h3>").html(name));
                 console.log("Player 1 is logged in! ");
                 enterPlayerOne(name);
@@ -97,6 +89,9 @@ function NameYourPlayer(name){
                 var addNewPlayer = {};
                 addNewPlayer['/player2'] = name;
                 database.ref("/players").update(addNewPlayer);
+                database.ref("/score").update({
+                    score2: 0
+                });
                 $(".name2").html($("<h3>").html(name));
                 console.log("Player 2 is logged in! ");
                 enterPlayerTwo(name);
@@ -280,44 +275,133 @@ function checkBothWeaponsAreSelected(){
 function rps(w1, w2){
     if ((w1 === "ROCK") && (w2 === "SISSORS")) {
             playerOneWins++;
-            $("#stage").append($("<h3>").text("Player 1 WINS! Player 2 you SUCK!"));
+            $("#stage").append($("<h3>").text("Player 1: ROCK - WINS! Player 2: SISSORS- YOU SUCK!"));
             console.log("player 1 wins!");
+            database.ref("/score").update({
+                score1: playerOneWins
+            });
+            database.ref("/score").on("value", function(snapshot) {
+                $("#nameScore1").html($("<div>").html(snapshot.val().score1));
+                $("#nameScore2").html($("<div>").html(snapshot.val().score2));
+            });
+            ResetMatch1();
           }
           else if ((w1 === "ROCK") && (w2 === "PAPER")) {
             playerTwoWins++;
-            $("#stage").append($("<h3>").text("Player 2 WINS! Player 1 you SUCK!"));
+            $("#stage").append($("<h3>").text("Player 1: ROCK - WINS! Player 2: PAPER- YOU SUCK!"));
             console.log("player 2 wins!");
+            database.ref("/score").update({
+                score2: playerTwoWins
+            });
+            database.ref("/score").on("value", function(snapshot) {
+                $("#nameScore1").html($("<div>").html(snapshot.val().score1));
+                $("#nameScore2").html($("<div>").html(snapshot.val().score2));
+            });
+            ResetMatch1();
           }
           else if ((w1 === "SISSORS") && (w2 === "ROCK")) {
             playerTwoWins++;
-            $("#stage").append($("<h3>").text("Player 2 WINS! Player 1 you SUCK!"));
+            $("#stage").append($("<h3>").text("Player 1: SISSORS - WINS! Player 2: ROCK- YOU SUCK!"));
             console.log("player 2 wins!");
+            database.ref("/score").update({
+                score2: playerTwoWins
+            });
+            database.ref("/score").on("value", function(snapshot) {
+                $("#nameScore1").html($("<div>").html(snapshot.val().score1));
+                $("#nameScore2").html($("<div>").html(snapshot.val().score2));
+            });
+            ResetMatch1();
           }
           else if ((w1 === "SISSORS") && (w2 === "PAPER")) {
             playerOneWins++;
-            $("#stage").append($("<h3>").text("Player 1 WINS! Player 2 you SUCK!"));
+            $("#stage").append($("<h3>").text("Player 1: SISSORS - WINS! Player 2: PAPER- YOU SUCK!"));
             console.log("player 1 wins!");
+            database.ref("/score").update({
+                score1: playerOneWins
+            });
+            database.ref("/score").on("value", function(snapshot) {
+                $("#nameScore1").html($("<div>").html(snapshot.val().score1));
+                $("#nameScore2").html($("<div>").html(snapshot.val().score2));
+            });
+            ResetMatch1();
           }
           else if ((w1 === "PAPER") && (w2 === "ROCK")) {
             playerOneWins++;
-            $("#stage").append($("<h3>").text("Player 1 WINS! Player 2 you SUCK!"));
+            $("#stage").append($("<h3>").text("Player 1: PAPER - WINS! Player 2: ROCK- YOU SUCK!"));
             console.log("player 1 wins!");
+            database.ref("/score").update({
+                score1: playerOneWins
+            });
+            database.ref("/score").on("value", function(snapshot) {
+                $("#nameScore1").html($("<div>").html(snapshot.val().score1));
+                $("#nameScore2").html($("<div>").html(snapshot.val().score2));
+            });
+            ResetMatch1();
           }
           else if ((w1 === "PAPER") && (w2 === "SISSORS")) {
             playerTwoWins++;
-            $("#stage").append($("<h3>").text("Player 2 WINS! Player 1 you SUCK!"));
+            $("#stage").append($("<h3>").text("Player 1: PAPER - WINS! Player 2: SISSORS- YOU SUCK!"));
             console.log("player 2 wins!");
+            database.ref("/score").update({
+                score2: playerTwoWins
+            });
+            database.ref("/score").on("value", function(snapshot) {
+                $("#nameScore1").html($("<div>").html(snapshot.val().score1));
+                $("#nameScore2").html($("<div>").html(snapshot.val().score2));
+            });
+            ResetMatch1();
           }
           else if (w1 === w2) {
-            $("#stage").append("<h3 class='main-text>It's a Tie!</h3>");
+            $("#stage").append($('<h3>').text("Player 1: " + w1 + "; Player 2: " + w2 + " TIE!!!"));
             console.log("Tie!");
-            ties++;
+            ResetMatch1();
+            ResetButtons();
           }
-          //else if((playerOneWins === 3)&&( playerTwoWins == 3)){
-              //suddenDeath();
-          //}
-
     };
+
+//RESET ROUND *************************************//
+
+function ResetMatch1(){
+    ResetMatch2();
+};
+
+
+function ResetMatch2(){
+    setTimeout(function(){
+        
+        //RESET HTML BUTTONS AND PICKS 
+        $("#player1-weapon").html($("<p>").html(""));
+        $("#player2-weapon").html($("<p>").html(""));
+        $("#stage").html($("<p>").html(""));
+        $("#myModal2").modal("show");
+        database.ref("/players").on("value", function(snapshot) {
+            $("#PP1").html($("<h3>").html(snapshot.val().player1));
+            $("#PP2").html($("<h3>").html(snapshot.val().player2));
+            
+        });
+    }, 4000);
+};
+
+function ResetButtons(){
+    database.ref("/playerWeapon").update({
+            weaponSelectOne: "",
+            weaponSelectTwo: ""
+        });
+}
+
+//MODAL 2*************************//
+
+$("#PP1").on('click', function(){
+    $(".player-one-buttons").show();
+    $("#myModal2").modal("hide");
+});
+
+$("#PP2").on('click', function(){
+    $(".player-two-buttons").show();
+    $("#myModal2").modal("hide");
+});
+//***************************** */
+
 
 //TEXT BOX FOR FOUL ABUSIVE SLURS
 $("#add-slur1").on('click', function(){
@@ -347,7 +431,6 @@ function textBox2(slurTwo){
         playerTwoSays: slurTwo
     });
     $("#text-input2").clear();
-
 
 };
 
